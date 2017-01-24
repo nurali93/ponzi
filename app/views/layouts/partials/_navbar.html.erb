@@ -1,0 +1,19 @@
+<nav>
+  <div class="nav-wrapper">
+    <div class="container">
+      <%= link_to "<strong>Bantu</strong>.my".html_safe, root_path, class: 'brand-logo' %>
+      <% if current_user %>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><%= link_to 'Applications', oauth_applications_path %></li>
+          <li><%= link_to 'Account', edit_user_registration_path %></li>
+        </ul>
+      <% else %>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><%= link_to 'Sign In', new_user_session_path %></li>
+          <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</nav>
+      

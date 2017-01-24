@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doorkeeper</title>
+    <%= csrf_meta_tags %>
+
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-wrapper">
+        <div class="container">
+          <%= link_to t('doorkeeper.layouts.admin.nav.oauth2_provider'), oauth_applications_path, class: 'brand-logo' %>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><%= link_to t('doorkeeper.layouts.admin.nav.applications'), oauth_applications_path %></li>
+            <li><%= link_to t('doorkeeper.layouts.admin.nav.home'), root_path %></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <div class="container">
+        <%- if flash[:notice].present? %>
+          <div class="alert alert-info">
+            <%= flash[:notice] %>
+          </div>
+        <% end -%>
+      
+        <%= yield %>
+      </div>
+    </main>
+  </body>
+</html>
