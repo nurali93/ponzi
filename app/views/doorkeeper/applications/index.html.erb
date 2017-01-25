@@ -2,7 +2,11 @@
   <h1><%= t('.title') %></h1>
 </div>
 
-<p><%= link_to t('.new'), new_oauth_application_path, class: 'btn btn-success' %></p>
+<div class="fixed-action-btn">
+  <%= link_to new_oauth_application_path, class: 'btn-floating btn-large' do %>
+    <i class="large material-icons">add</i>
+  <% end %>
+</div>
 
 <table class="table table-striped">
   <thead>

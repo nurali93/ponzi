@@ -12,7 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require materialize-sprockets
 //= require materialize/extras/nouislider
+//= require turbolinks
 //= require_tree .
+$(document).on('ready page:change', function() {
+  $('.dropdown-button').dropdown()
+  $(".button-collapse").sideNav();
+  Waves.displayEffect();
+})

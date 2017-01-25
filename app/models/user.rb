@@ -5,4 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :oauth_applications, class_name: 'Doorkeeper::Application', as: :owner
+
+  def name
+    email.split('@').first.humanize
+  end
 end
