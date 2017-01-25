@@ -6,21 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= t('doorkeeper.layouts.application.title') %></title>
     <%= csrf_meta_tags %>
-    
+
+    <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
+
   <body>
+    <%= render partial: 'layouts/partials/navbar' %>
     <main>
-      <div id="container">
-        <%- if flash[:notice].present? %>
-          <div class="alert alert-info">
-            <%= flash[:notice] %>
-          </div>
-        <% end -%>
-      
+      <div class="container">
         <%= yield %>
       </div>
     </main>
+
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload', 'data-turbolinks-eval': false %>
   </body>
 </html>

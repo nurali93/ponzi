@@ -1,9 +1,9 @@
 <div class="page-header">
-  <h1><%= t('.title', name: @application.name) %></h1>
+  <h1><%= @application.name %></h1>
 </div>
 
 <div class="row">
-  <div class="col-md-8">
+  <div class="col m8">
     <h4><%= t('.application_id') %>:</h4>
     <p><code id="application_id"><%= @application.uid %></code></p>
 
@@ -28,12 +28,17 @@
       <% end %>
     </table>
   </div>
+</div>
 
-  <div class="col-md-4">
+<div class="row">
+  <div class="col m4">
     <h3><%= t('.actions') %></h3>
-
-    <p><%= link_to t('doorkeeper.applications.buttons.edit'), edit_oauth_application_path(@application), class: 'btn btn-primary' %></p>
-
-    <p><%= render 'delete_form', application: @application, submit_btn_css: 'btn btn-danger' %></p>
+  
+    <p>
+      <%= link_to t('doorkeeper.applications.buttons.edit'), edit_oauth_application_path(@application), class: 'btn btn-primary' %>
+      <%= link_to 'Delete', oauth_application_path(@application), method: :delete, class: 'btn red' %>
+    </p>
+  
+    <p></p>
   </div>
 </div>
