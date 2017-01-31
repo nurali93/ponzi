@@ -25,7 +25,7 @@ $(document).on('turbolinks:load', function() {
   new Clipboard('.clipboard-btn');
 
   $('#offer_price, #offer_percentage').on('change', function() {
-    var price = parseInt($('#offer_price').val()) || 0;
+    var price = parseInt($('#offer_price').val())/100 || 0;
     var percentage = parseInt($('#offer_percentage').val()) || 0;
     var payableAmount = price/100*percentage;
     console.log(payableAmount)
