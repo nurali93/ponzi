@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   root to: 'welcome#index'
 
   get 'r/:code', to: 'offers#recruit', as: :offer_recruit
-  resources :offers
+  resources :offers, except: [:show, :update, :destroy]
   resources :payables do
     resources :payments
   end

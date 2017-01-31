@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require materialize-sprockets
 //= require materialize/extras/nouislider
+//= require clipboard
 //= require turbolinks
 //= require_tree .
 $(document).on('turbolinks:load', function() {
@@ -21,6 +22,7 @@ $(document).on('turbolinks:load', function() {
   $('.button-collapse').sideNav();
   $('select').material_select();
   Waves.displayEffect();
+  new Clipboard('.clipboard-btn');
 
   $('#offer_price, #offer_percentage').on('change', function() {
     var price = parseInt($('#offer_price').val()) || 0;

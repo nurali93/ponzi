@@ -6,7 +6,7 @@ class PaymentsController < ApplicationController
     @payment = @payable.payments.new(user: current_user)
     respond_to do |format|
       if @payment.save && @payable.pay
-        format.html { redirect_to @payable.offer }
+        format.html { redirect_to offers_path }
       else
         format.html { render json: @payment.errors }
       end

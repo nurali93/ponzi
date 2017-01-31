@@ -1,12 +1,8 @@
 class OffersController < ApplicationController
   before_action :authenticate_user!, except: [:recruit]
-  before_action :set_offer, only: [:show, :destroy]
 
   def index
     @offers = current_user.offers
-  end
-
-  def show
   end
 
   def recruit
@@ -23,21 +19,11 @@ class OffersController < ApplicationController
     @offer = current_user.offers.new(offer_params)
     respond_to do |format|
       if @offer.save
-        format.html { redirect_to offer_path(@offer) }
+        format.html { redirect_to offers_path }
       else
         format.html { redirect_to new_offer_path }
       end
     end
-  end
-
-  def destroy
-    respond_to do |format|
-      if @offer.destroy
-        format.html { redirect_to offers_path }
-      else
-        format.html { redirect_to offer_path(@offer) }
-      end
-    end   
   end
 
   private 

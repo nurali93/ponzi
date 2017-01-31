@@ -11,7 +11,7 @@
           <thead>
             <tr>
               <th>Price</th>
-              <th>Percentage</th>
+              <th>%</th>
               <th>Paid</th>
               <th></th>
             </tr>
@@ -23,7 +23,10 @@
                 <td><%= offer.percentage %></td>
                   <% if offer.payable.paid %>
                     <td><i class="material-icons green-text">done</i></td>
-                    <td><%= link_to 'share', offer_recruit_url(offer.code), class: 'btn waves-effect waves-light' %></td>
+                    <td>
+                      <input type="text" value="<%= offer_recruit_url(offer.code) %>" id="offerCode<%= offer.id %>">
+                      <%#= link_to 'Copy', '', class: 'btn clipboard-btn waves-effect waves-light', data: { "clipboard-action": "copy", "clipboard-target": "#offerCode#{offer.id}" } %>
+                    </td>
                   <% else %>
                     <td><i class="material-icons grey-text text-lighten-2">done</i></td>
                     <td><%= link_to 'Pay now', payable_payments_path(offer.payable), method: :post, class: 'btn waves-effect waves-light orange' %></td>

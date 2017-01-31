@@ -5,7 +5,7 @@
         <h2>Deposits</h2>
       </div>
     </div>
-    <% if @deposits.present? %>
+    <% if current_user.offers.present? %>
       <div class="row">
         <div class="col s12 m12 l12">
           <table>
@@ -33,7 +33,6 @@
     <% else %>
       <div class="row">
         <div class="col s12 m12 l12">
-          <p>No deposit found.</p>
           <p>Creat an offer to start receiving!</p>
           <%= link_to 'Add Offer', new_offer_path, class: 'btn btn-large' %>
         </div>
