@@ -5,6 +5,7 @@ class Offer < ApplicationRecord
 
   validates_presence_of :user, :price, :percentage
 
+  before_create :update_price
   before_create :generate_code
   after_create :generate_payable
 
@@ -20,6 +21,10 @@ class Offer < ApplicationRecord
 
   def payable_amount
     price/100*percentage
+  end
+
+  def update_price
+    self.price = price*100
   end
 
   def generate_code

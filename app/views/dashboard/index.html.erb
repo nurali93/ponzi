@@ -11,6 +11,8 @@
           <thead>
             <tr>
               <th>User</th>
+              <th>Offer</th>
+              <th>Percentage</th>
               <th>Amount</th>
             </tr>
           </thead>
@@ -18,7 +20,9 @@
             <% @deposits.each do |deposit| %>
               <tr>
                 <td><%= deposit.from.email %></td>
-                <td><%= deposit.amount %></td>
+                <td><%= deposit.from.offer.price/100 %></td>
+                <td><%= deposit.from.offer.percentage %></td>
+                <td><%= deposit.amount/100 %></td>
               </tr>
             <% end %>
           </tbody>

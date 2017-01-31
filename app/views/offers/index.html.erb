@@ -19,7 +19,7 @@
           <tbody>
             <% @offers.each do |offer| %>
               <tr>
-                <td><%= offer.price %></td>
+                <td><%= offer.price/100 %></td>
                 <td><%= offer.percentage %></td>
                   <% if offer.payable.paid %>
                     <td><i class="material-icons green-text">done</i></td>
