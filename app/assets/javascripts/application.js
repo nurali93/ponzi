@@ -16,8 +16,17 @@
 //= require materialize/extras/nouislider
 //= require turbolinks
 //= require_tree .
-$(document).on('ready page:change', function() {
-  $('.dropdown-button').dropdown()
-  $(".button-collapse").sideNav();
+$(document).on('turbolinks:load', function() {
+  $('.dropdown-button').dropdown();
+  $('.button-collapse').sideNav();
+  $('select').material_select();
   Waves.displayEffect();
+
+  $('#offer_price, #offer_percentage').on('change', function() {
+    var price = parseInt($('#offer_price').val()) || 0;
+    var percentage = parseInt($('#offer_percentage').val()) || 0;
+    var payableAmount = price/100*percentage;
+    console.log(payableAmount)
+    $('#payable_amount').html(payableAmount);
+  })
 })

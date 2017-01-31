@@ -8,9 +8,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super do |user|
+      if session[:offer_code]
+        user.offer_id = Offer.find_by(code: session[:offer_code]).id
+        user.save
+      end
+    end
+  end
 
   # GET /resource/edit
   # def edit

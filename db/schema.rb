@@ -10,50 +10,57 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170124135714) do
+ActiveRecord::Schema.define(version: 20170131081748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "oauth_access_grants", force: :cascade do |t|
-    t.integer  "resource_owner_id", null: false
-    t.integer  "application_id",    null: false
-    t.string   "token",             null: false
-    t.integer  "expires_in",        null: false
-    t.text     "redirect_uri",      null: false
-    t.datetime "created_at",        null: false
-    t.datetime "revoked_at"
-    t.string   "scopes"
-    t.index ["token"], name: "index_oauth_access_grants_on_token", unique: true, using: :btree
+  create_table "offers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "price"
+    t.integer  "percentage"
+    t.string   "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_offers_on_code", using: :btree
+    t.index ["user_id"], name: "index_offers_on_user_id", using: :btree
   end
 
-  create_table "oauth_access_tokens", force: :cascade do |t|
-    t.integer  "resource_owner_id"
-    t.integer  "application_id"
-    t.string   "token",                               null: false
-    t.string   "refresh_token"
-    t.integer  "expires_in"
-    t.datetime "revoked_at"
-    t.datetime "created_at",                          null: false
-    t.string   "scopes"
-    t.string   "previous_refresh_token", default: "", null: false
-    t.index ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true, using: :btree
-    t.index ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id", using: :btree
-    t.index ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
+  create_table "payables", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "offer_id"
+    t.integer  "amount"
+    t.boolean  "paid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["offer_id"], name: "index_payables_on_offer_id", using: :btree
+    t.index ["user_id"], name: "index_payables_on_user_id", using: :btree
   end
 
-  create_table "oauth_applications", force: :cascade do |t|
-    t.string   "name",                      null: false
-    t.string   "uid",                       null: false
-    t.string   "secret",                    null: false
-    t.text     "redirect_uri",              null: false
-    t.string   "scopes",       default: "", null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "owner_id"
-    t.string   "owner_type"
-    t.index ["owner_id", "owner_type"], name: "index_oauth_applications_on_owner_id_and_owner_type", using: :btree
-    t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
+  create_table "payments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "payable_id"
+    t.integer  "status"
+    t.string   "gateway"
+    t.jsonb    "details"
+    t.string   "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_payments_on_code", using: :btree
+    t.index ["payable_id"], name: "index_payments_on_payable_id", using: :btree
+    t.index ["user_id"], name: "index_payments_on_user_id", using: :btree
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.string   "from_type"
+    t.integer  "from_id"
+    t.string   "to_type"
+    t.integer  "to_id"
+    t.integer  "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_type", "from_id"], name: "index_transactions_on_from_type_and_from_id", using: :btree
+    t.index ["to_type", "to_id"], name: "index_transactions_on_to_type_and_to_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -76,12 +83,18 @@ ActiveRecord::Schema.define(version: 20170124135714) do
     t.datetime "locked_at"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "offer_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["offer_id"], name: "index_users_on_offer_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   end
 
-  add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
-  add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
+  add_foreign_key "offers", "users"
+  add_foreign_key "payables", "offers"
+  add_foreign_key "payables", "users"
+  add_foreign_key "payments", "payables"
+  add_foreign_key "payments", "users"
+  add_foreign_key "users", "offers"
 end

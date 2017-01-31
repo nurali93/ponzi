@@ -1,0 +1,12 @@
+<main>
+  <div class="container">
+    <h4><%= @offer.price %></h4>
+    <h4><%= @offer.percentage %></h4>
+    <% unless @offer.payable.paid %>
+      <h4>RM <%= @offer.payable.amount %></h4>
+      <%= link_to 'Pay', payable_path(@offer.payable), class: 'btn orange' %>
+    <% else %>
+      <h2><%= link_to 'url', offer_recruit_url(@offer.code) %></h2>
+    <% end %>
+  </div>
+</main>

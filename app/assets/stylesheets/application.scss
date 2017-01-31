@@ -15,8 +15,8 @@
  */
 
 @import "materialize/components/color";
-$primary-color: color("blue", "lighten-2") !default;
-$secondary-color: color("green", "base") !default;
+$primary-color: color("red", "base") !default;
+$secondary-color: color("indigo", "base") !default;
 @import 'materialize';
 @import "materialize/extras/nouislider";
 
