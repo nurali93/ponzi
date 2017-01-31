@@ -6,7 +6,7 @@ module OffersHelper
   def price_options
     if current_user.offer.present?
       limit = current_user.offer.price
-      Offer::PRICES.select{ |e| e <= limit }.map { |e| ["RM #{e}", e] }
+      Offer::PRICES.select{ |e| e <= limit }.map { |e| ["RM #{e/100}", e] }
     else
       Offer.PRICES
     end

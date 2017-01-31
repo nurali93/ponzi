@@ -5,11 +5,10 @@ class Offer < ApplicationRecord
 
   validates_presence_of :user, :price, :percentage
 
-  before_create :update_price
   before_create :generate_code
   after_create :generate_payable
 
-  PRICES = [100, 500, 1000, 5000, 10000, 50000]
+  PRICES = [10000, 50000, 100000, 500000, 1000000, 5000000]
   PERCENTAGES = [10, 20, 30, 40, 50, 60, 70, 80, 90]
 
   def code
@@ -24,10 +23,6 @@ class Offer < ApplicationRecord
 
   def payable_amount
     price/100*percentage
-  end
-
-  def update_price
-    self.price = price*100
   end
 
   def generate_code
