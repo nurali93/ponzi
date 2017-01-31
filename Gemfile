@@ -37,7 +37,6 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'devise'
-gem 'doorkeeper'
 gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
