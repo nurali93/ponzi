@@ -23,4 +23,8 @@ class User < ApplicationRecord
   def name
     email.split('@').first.humanize
   end
+
+  def hash
+    Digest::MD5.hexdigest("#{id}_#{email}")
+  end
 end

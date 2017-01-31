@@ -9,6 +9,9 @@ class Offer < ApplicationRecord
   before_create :generate_code
   after_create :generate_payable
 
+  PRICES = [100, 500, 1000, 5000, 10000, 50000]
+  PERCENTAGES = [10, 20, 30, 40, 50, 60, 70, 80, 90]
+
   def code
     if payable.paid?
       super
